@@ -167,7 +167,10 @@ function opencomposewindow(url) {
     T = (T<st?st:T);
     L = (L<sl?sl:L);
     var childwin = window.open(url,'','width='+W+',height='+H+',top='+T+',left='+L);
-    childwin.moveTo(L,T);
+    // fix Chrome issue with moveTo method
+    if (! $.browser.webkit) {
+        childwin.moveTo(L,T);
+    }
     childwin.focus();
     // Give the child window a name so we can close it later
     childwin.name = 'rc_compose_child';
